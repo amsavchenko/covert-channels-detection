@@ -21,10 +21,11 @@ path_to_messages = config['path_to_messages']
 number_of_messages = config['number_of_messages']
 longest_message_length = config['longest_message_length']
 
-if covert:
-    path_to_save_file = config['path_to_save_file']['covert'][embed_every]
-else:
-    path_to_save_file = config['path_to_save_file']['overt']
+if config['save']:
+    if covert:
+        path_to_save_file = config['path_to_save_file']['covert'][embed_every]
+    else:
+        path_to_save_file = config['path_to_save_file']['overt']
 
 # cps - char per second
 average_cps = 200 / 60
@@ -47,7 +48,8 @@ def ip_ctc_delay(message, covert_bit):
 
 def extract_from_ip_ctc(inter_packet_delays, default_value='0'):
     bit_message = ''
-    for delay in inter_packet_delays:
+    for i in range(embed_every - 1, len(inter_packet_delays), embed_every):
+        delay = inter_packet_delays[i]
         if delay >= config['ip_ctc'][0]['left'] and delay <= config['ip_ctc'][0]['right']:
             bit_message += '0'
         elif delay >= config['ip_ctc'][1]['left'] and delay <= config['ip_ctc'][1]['right']:
@@ -74,8 +76,10 @@ if __name__ == '__main__':
     client1.send_messages(client2, messages, covert_message, embed_every)
 
     inter_packet_arrival_times = client2.calculate_inter_packet_delays()
-    with open(path_to_save_file, 'wb') as file:
-        pickle.dump(inter_packet_arrival_times, file)
+
+    if config['save']:
+        with open(path_to_save_file, 'wb') as file:
+            pickle.dump(inter_packet_arrival_times, file)
 
     if covert:
         decoded_message = client2.extract_covert_message_from_inter_packet_delays(extract_from_ip_ctc)
