@@ -19,16 +19,18 @@ ip_ctc:
     left: 16
     right: 22
 
-covert: False
+covert: True
 covert_message: 'Qwerty12345'
-embed_every: 1
-number_of_messages: 1001
+embed_every: 3
+number_of_messages: 25
 
 path_to_messages: '../data/text_messages.csv'
 longest_message_length: 100
 
+save: False
 path_to_save_file:
   overt: '../data/overt_traffic.pkl'
   covert:
     1: '../data/covert_traffic_1.pkl'
+    3: '../data/covert_traffic_3.pkl'
 
