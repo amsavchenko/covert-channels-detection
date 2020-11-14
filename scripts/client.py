@@ -71,6 +71,13 @@ class Client():
             receiver.receive_message()
 
 
+    def quite_send_messages(self, receiver, messages, covert_message='Test message', embed_every=3, print_progress=True):
+        for i in tqdm(range(len(messages))):
+            # self.send_message(self.delay_function, messages[i])
+            # receiver.receive_message()
+            self.delay_counters.append(self.delay_function(messages[i]))
+
+
     def receive_message(self, verbose=False):
         while True:
             try:
@@ -119,6 +126,15 @@ class ClientWithCovertChannel(Client):
 
             receiver.receive_message()
 
+
+    def quite_send_messages(self, receiver, messages, covert_message='Test message', embed_every=3, print_progress=True):
+        covert_message = convert_message_to_bytes(covert_message)
+        for i in tqdm(range(len(messages))):
+            if i % embed_every == 0 and len(covert_message) > 0:
+                self.delay_counters.append(self.covert_channel_delay_function(messages[i], int(covert_message[0])))
+                covert_message = covert_message[1:]
+            else:
+                self.delay_counters.append(self.delay_function(messages[i]))
 
 
 

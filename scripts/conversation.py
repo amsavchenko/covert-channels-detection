@@ -31,10 +31,13 @@ if config['save']:
 average_cps = 200 / 60
 
 
+# def load_messages():
+#     df = pd.read_csv(path_to_messages)
+#     real_messages = df.loc[df['Category'] == 'ham', 'Message']
+#     return real_messages[real_messages.apply(lambda x: len(x) < longest_message_length)]
+
 def load_messages():
-    df = pd.read_csv(path_to_messages)
-    real_messages = df.loc[df['Category'] == 'ham', 'Message']
-    return real_messages[real_messages.apply(lambda x: len(x) < longest_message_length)]
+    return pd.read_csv(path_to_messages, names=['Message']).loc[:, 'Message']
 
 
 def normal_delay(message):
@@ -73,9 +76,10 @@ if __name__ == '__main__':
     indices = np.random.randint(0, all_messages.shape[0], size=number_of_messages)
     messages = all_messages.iloc[indices].to_list()
 
-    client1.send_messages(client2, messages, covert_message, embed_every)
+    client1.quite_send_messages(client2, messages, covert_message, embed_every)
 
-    inter_packet_arrival_times = client2.calculate_inter_packet_delays()
+    # inter_packet_arrival_times = client2.calculate_inter_packet_delays()
+    inter_packet_arrival_times = client1.delay_counters
 
     if config['save']:
         with open(path_to_save_file, 'wb') as file:
