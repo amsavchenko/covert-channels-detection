@@ -13,24 +13,33 @@ normal_delay:
 
 ip_ctc:
   0:
-    left: 6
-    right: 12
+    left: 5
+    right: 20
   1:
-    left: 16
-    right: 22
+    left: 20
+    right: 42
 
 covert: True
-covert_message: 'Qwerty12345'
-embed_every: 3
-number_of_messages: 25
+covert_message: "Password-Qwerty1234567890; The 2020 United States presidential election is scheduled for Tuesday, November 3, 2020. It will be the 59th quadrennial presidential election. Voters will select presidential electors who in turn will vote on December 14, 2020, to either elect a new president and vice president or reelect the incumbents Donald Trump and Mike Pence respectively. The series of presidential primary elections and caucuses were held from February to August 2020. This nominating process is an indirect election, where voters cast ballots selecting a slate of delegates to a political party's nominating convention, who then in turn elect their parties' nominees for president and vice president. Considered a referendum on the Trump presidency, the major two-party candidates are Republican incumbent President Donald Trump and Democrat former Vice President Joe Biden. Central issues of the election include the impact of the ongoing COVID-19 pandemic, which has left over 220,000 Americans dead; protests in reaction to the killing of George Floyd and other African Americans; the death of Supreme Court Justice Ruth Bader Ginsburg and the nomination of Amy Coney Barrett, climate change regulations, particularly the Paris Agreement from which Trump plans to withdraw; and the future of the Affordable Care Act, with Biden arguing for protecting and expanding the scope of the legislation, and Trump pushing for repealing or narrowing many of its provisions. Trump secured the Republican nomination without any serious opposition alongside incumbent vice president Pence. Former vice president Joe Biden secured the Democratic nomination over his closest rival, Senator Bernie Sanders, in a competitive primary that featured the largest field of presidential candidates for any political party in the modern era of American politics. On August 11, 2020, Biden announced that his running mate would be Senator Kamala Harris, making her the first African-American, the first Indian-American, the first Asian-American, and the third female vice presidential nominee on a major party ticket (after Geraldine Ferraro in 1984 and Sarah Palin in 2008). Jo Jorgensen secured the Libertarian nomination with Spike Cohen as her running mate, and Howie Hawkins secured the Green nomination with Angela Nicole Walker as his running mate. The winner of the 2020 presidential election is scheduled to be inaugurated on January 20, 2021. Trump or Biden will be the oldest candidate to be elected president. Password-Qwerty1234567890; "
+embed_every: 5
+number_of_messages: 100999
 
-path_to_messages: '../data/text_messages.csv'
-longest_message_length: 100
+path_to_messages: '../data/tweets.csv'
+longest_message_length: 125
 
-save: False
+save: True
 path_to_save_file:
-  overt: '../data/overt_traffic.pkl'
+  overt: '../data/overt_traffic_101k.pkl'
   covert:
     1: '../data/covert_traffic_1.pkl'
     3: '../data/covert_traffic_3.pkl'
+    5: '../data/covert_traffic_5_101k.pkl'
+
+
+window_size: 200
+step_size: 20
+paths:
+  overt: '../data/overt_traffic_101k.pkl'
+  covert: '../data/covert_traffic_5_101k.pkl'
+  save_df: '../data/dataset_with_features_200_20.csv'
 
